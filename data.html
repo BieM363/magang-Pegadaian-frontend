@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Pengingat</title>
+     <!-- Favicon Ikon Gambar -->
+     <link rel="icon" href="assets/img/images.png" type="image/png">
+     <!-- Tambahkan Bootstrap CSS dari CDN -->
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Styling untuk tabel */
+        .table-container {
+            margin-top: 50px;
+        }
+
+        .table th {
+            background-color: #24a326;
+            color: white;
+        }
+
+        /* Styling untuk tombol */
+        .back-button, .refresh-button, .download-pdf-button, .import-excel-button {
+            background-color: #24a326;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-top: 20px;
+            margin-right: 10px;
+        }
+
+        .back-button:hover, .refresh-button:hover, .download-pdf-button:hover, .import-excel-button:hover {
+            background-color: #1e891e;
+            text-decoration: none;
+            color: white;
+        }
+
+        .delete-button {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+        }
+
+        .delete-button:hover {
+            background-color: #c82333;
+        }
+
+        /* Styling untuk input file */
+        .import-excel-input {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="text-center mt-5">Data Pengingat Pembayaran</h1>
+
+        <!-- Tombol Kembali ke Dashboard, Refresh Data, Download PDF, Import Excel -->
+        <a href="dashboard.html" class="back-button">Kembali ke Dashboard</a>
+        <button class="refresh-button" onclick="loadData()">Refresh Data</button>
+        <button class="download-pdf-button" onclick="downloadPDF()">Download PDF</button>
+        
+        <!-- Input untuk mengimpor file Excel -->
+        <input type="file" class="import-excel-input" id="importExcel" accept=".xlsx, .xls">
+        <button class="import-excel-button" onclick="importExcel()">Import Excel</button>
+
+        <!-- Tabel untuk Menampilkan Data -->
+        <div class="table-container">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Nama Pelanggan</th>
+                        <th>Nomor Telepon</th>
+                        <th>Barang Gadai</th>
+                        <th>Jumlah Pembayaran</th>
+                        <th>Tanggal Jatuh Tempo</th>
+                        <th>Aksi</th> <!-- Kolom untuk aksi (hapus) -->
+                    </tr>
+                </thead>
+                <tbody id="reminderData">
+                    <!-- Data akan ditampilkan di sini -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Menyertakan jQuery, Bootstrap JS, jsPDF, dan SheetJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script> <!-- jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script> <!-- SheetJS -->
+    <script src="js/data.js"></script> <!-- Hubungkan dengan data.js -->
+</body>
+</html>

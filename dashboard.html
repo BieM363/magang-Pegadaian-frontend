@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pegedaian Gorontalo Sentral</title>
+    <!-- Favicon Ikon Gambar -->
+    <link rel="icon" href="assets/img/images.png" type="image/png">
+    <!-- Tambahkan Bootstrap CSS dari CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Hubungkan file CSS khusus Anda -->
+    <link rel="stylesheet" href="css/dashboard.css">
+    <style>
+        /* CSS untuk Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body data-spy="scroll" data-target=".navbar" data-offset="70">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top" style="background-color: #ffffff;">
+        <a class="navbar-brand" href="dashboard.html" style="margin-left: 15px;">
+            <!-- Logo Pegadaian (berfungsi untuk refresh halaman) -->
+            <img src="assets/img/images.png" width="100" height="45" class="d-inline-block align-top" alt="Logo Pegadaian" style="border-radius: 5px;">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon" style="color: white;"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#home" style="padding-right: 20px;">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#about" style="padding-right: 20px;">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#contact" style="padding-right: 20px;">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="login.html" style="padding-right: 20px;">Login</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- CSS untuk font Nexa-Heavy dan warna dasar -->
+    <style>
+        /* Import font Nexa-Heavy */
+        @font-face {
+            font-family: 'Nexa-Heavy';
+            src: url('assets/font/Nexa-Heavy.ttf') format('truetype');
+        }
+    
+        /* Mengatur font dan warna dasar tombol navbar */
+        .navbar-nav .nav-link {
+            font-family: 'Nexa-Heavy', sans-serif; /* Menggunakan font Nexa-Heavy */
+            color: #a09e9c; /* Warna dasar tombol */
+        }
+    
+        /* Mengubah warna teks pada hover */
+        .navbar-nav .nav-link:hover {
+            color: #24a326 !important;
+            transition: color 0.3s ease; /* Menambahkan efek transisi saat hover */
+        }
+    
+        /* Mengubah warna teks saat aktif/klik */
+        .navbar-nav .nav-link:active {
+            color: #24a326 !important;
+        }
+    
+        /* Menjaga warna tetap putih setelah fokus */
+        .navbar-nav .nav-link:focus {
+            color: #24a326 !important;
+        }
+    
+        /* Memastikan tombol berubah responsif di layar yang lebih kecil */
+        @media (max-width: 768px) {
+            .navbar-nav .nav-link {
+                color: #24a326 !important;
+            }
+        }
+    </style>
+    
+    <!-- Home Section -->
+    <section id="home" class="jumbotron jumbotron-fluid position-relative text-white d-flex align-items-center" style="background-image: url('assets/img/IMG_20240912_083234.jpg'); background-size: cover; background-position: center; height: 550px; margin-top: 70px;">
+        <!-- Overlay Warna Hijau dengan Opasitas -->
+        <div class="overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(107, 176, 139, 0.6);"></div>
+        <div class="container text-center position-relative">
+            <h2 class="display-4 custom-heading">Selamat Datang</h2>
+            <p class="lead custom-subheading">Di Pegadaian Gorontalo Cabang Sentral</p>
+            <style>
+                /* Import font Montserrat Bold */
+                @font-face {
+                    font-family: 'Montserrat Bold';
+                    src: url('assets/font/montserrat.bold.ttf') format('truetype');
+                }
+            
+                /* Styling untuk Teks dengan Font dan Shadow */
+                .custom-heading {
+                    font-family: 'Montserrat Bold', sans-serif; /* Menggunakan font Montserrat Bold */
+                    color: white; /* Warna teks */
+                    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Shadow pada teks */
+                }
+            
+                .custom-subheading {
+                    font-family: 'Montserrat Bold', sans-serif; /* Menggunakan font Montserrat Bold */
+                    color: white; /* Warna teks */
+                    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Shadow pada teks */
+                }
+            </style>
+            
+
+            <!-- Tombol Menuju Halaman Pengingat Pembayaran -->
+<style>
+    .pushable {
+      position: relative;
+      border: none;
+      background: transparent;
+      padding: 0;
+      cursor: pointer;
+      outline-offset: 4px;
+      transition: filter 250ms;
+    }
+    .shadow {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 12px;
+      background: hsl(0deg 0% 0% / 0.25);
+      will-change: transform;
+      transform: translateY(2px);
+      transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1);
+    }
+    .edge {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 12px;
+      background: linear-gradient(
+        to left,
+        #114712(340deg 100% 16%) 0%,
+        #1c7a1e(340deg 100% 32%) 8%,
+        #1c7a1e(340deg 100% 32%) 92%,
+        #114712(340deg 100% 16%) 100%
+      );
+    }
+    .front {
+      display: block;
+      position: relative;
+      padding: 12px 42px;
+      border-radius: 12px;
+      font-size: 1.25rem;
+      color: white;
+      background: #24a326;
+      will-change: transform;
+      transform: translateY(-4px);
+      transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1);
+    }
+  
+    .pushable:hover {
+      filter: brightness(110%);
+    }
+  
+    .pushable:hover .front {
+      transform: translateY(-6px);
+      transition: transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5);
+    }
+    .pushable:active .front {
+      transform: translateY(-2px);
+      transition: transform 34ms;
+    }
+  
+    .pushable:hover .shadow {
+      transform: translateY(4px);
+      transition: transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5);
+    }
+    .pushable:active .shadow {
+      transform: translateY(1px);
+      transition: transform 34ms;
+    }
+  
+    .pushable:focus:not(:focus-visible) {
+      outline: none;
+    }
+</style>
+
+<button class="pushable" onclick="window.location.href='index.html';">
+    <span class="shadow"></span>
+    <span class="edge"></span>
+    <span class="front"> Buat Pengingat Pembayaran </span>
+</button>
+
+        </div>
+    </section>
+
+    <!-- About Section -->
+<section id="about" class="container mt-5">
+    <h2>About Us</h2>
+    <div class="row">
+        <!-- Kolom Kiri untuk Teks -->
+        <div class="col-md-6 text-justify-custom">
+            <p><strong>Tentang:</strong> Pegadaian adalah lembaga keuangan yang secara resmi mempunyai izin untuk melaksanakan kegiatan operasionalnya berupa pembiayaan kredit kepada masyarakat dalam bentuk penyaluran dana dengan jumlah yang relatif kecil maupun jumlah yang besar atas dasar gadai, juga sebagai jasa titipan, jasa taksiran.</p>
+            <p><strong>Tujuan:</strong> Tujuan pegadaian adalah untuk memberikan solusi keuangan kepada masyarakat dengan menawarkan layanan gadai barang sebagai jaminan.</p>
+            <p><strong>Sejarah Singkat:</strong> Pegadaian resmi didirikan pada 1 April 1901 oleh pemerintah Hindia Belanda di Batavia (sekarang Jakarta). Lembaga ini dibentuk untuk memberikan pinjaman kepada masyarakat dengan barang sebagai jaminan, khususnya bagi mereka yang kesulitan mengakses kredit melalui saluran formal lainnya.
+                Tujuan utamanya adalah untuk membantu rakyat miskin dalam mendapatkan dana dengan cara yang aman dan terjamin.
+                Setelah kemerdekaan Indonesia pada 1945, Pegadaian mengalami transformasi dan pengembangan untuk menyesuaikan diri dengan kebutuhan masyarakat. Saat ini, Pegadaian terus berkembang dan menawarkan berbagai produk dan layanan keuangan, termasuk pinjaman, pembelian emas, dan layanan investasi, serta berfungsi sebagai lembaga penting dalam sistem keuangan Indonesia.</p>
+            <p><strong>Moto:</strong> Mengatasi Masalah Tanpa Masalah</p>
+        </div>
+        <!-- Kolom Kanan untuk 3 Foto -->
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-6 mb-4">
+                    <img src="assets/img/kantor1.jpg" class="img-fluid" alt="Foto Kantor 1">
+                </div>
+                <div class="col-6 mb-4">
+                    <img src="assets/img/kantor2.jpg" class="img-fluid" alt="Foto Kantor 2">
+                </div>
+                <div class="col-12">
+                    <img src="assets/img/kantor3.jpg" class="img-fluid" alt="Foto Kantor 3">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+ <!-- Footer Section (Contact Us) -->
+<footer id="contact" class="pt-5 pb-4" style="background-color: #28302a;">
+    <div class="container text-center text-md-left">
+        <div class="row text-center text-md-left">
+            <!-- Kolom Logo dan Deskripsi -->
+            <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+                <img src="assets/img/Pegadaian_Logo.png" width="100" height="90" alt="Logo Pegadaian">
+                <p class="text-white">Pegadaian Gorontalo Cabang Sentral adalah solusi terpercaya untuk kebutuhan finansial Anda. Kami melayani masyarakat dengan transparansi dan profesionalisme.</p>
+            </div>
+
+            <!-- Kolom Kontak -->
+            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+                <h5 class="text-uppercase mb-4 font-weight-bold text-white">Contact Us</h5>
+                <p class="d-flex align-items-center text-white">
+                    <img src="assets/img/pngwing.com (5).png" alt="Logo" width="30" height="30" class="mr-3">
+                    Jl. Samratulangi No.35, Limba U Dua, Kota Sel., Kota Gorontalo, Gorontalo 96138
+                </p>
+                <p class="d-flex align-items-center text-white">
+                    <img src="assets/img/pngwing.com (4).png" alt="Logo" width="30" height="30" class="mr-3">
+                    cpp.gorontalosentral@pegadaian.co.id
+                </p>
+                <p class="d-flex align-items-center text-white">
+                    <img src="assets/img/pngwing.com (1).png" alt="Logo" width="35" height="35" class="mr-3">
+                    +62 811 1067 1333 (WhatsApp)
+                </p>
+            </div>
+
+            <!-- Kolom Media Sosial -->
+            <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+                <h5 class="text-uppercase mb-4 font-weight-bold text-white">Follow Us</h5>
+                <p class="d-flex align-items-center text-white">
+                    <img src="assets/img/pngwing.com (3).png" alt="Logo" width="35" height="35" class="mr-3">
+                    <a href="https://www.facebook.com/profile.php?id=100095155991211&mibextid=ZbWKwL" class="text-white" target="_blank">Facebook</a>
+                </p>
+            </div>
+        </div>
+        
+        <!-- Baris Footer Bawah -->
+        <div class="row align-items-center mt-4">
+            <div class="col-md-7 col-lg-8">
+                <p class="text-center text-md-left text-white">© 2024 Pegadaian Gorontalo Cabang Sentral. All Rights Reserved.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Font Awesome Icons CDN -->
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+    <!-- Tambahkan Bootstrap JS dan dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

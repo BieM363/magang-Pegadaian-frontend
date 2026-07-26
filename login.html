@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Admin</title>
+     <!-- Favicon Ikon Gambar -->
+     <link rel="icon" href="assets/img/images.png" type="image/png">
+     <!-- Tambahkan Bootstrap CSS dari CDN -->
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Menggunakan file CSS yang sudah diperbarui -->
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* Import font Montserrat Bold */
+        @font-face {
+            font-family: 'Montserrat Bold';
+            src: url('assets/font/montserrat.bold.ttf') format('truetype');
+        }
+
+        /* Mengatur font untuk judul */
+        .custom-title {
+            font-family: 'Montserrat Bold', sans-serif;
+            color: #333;
+        }
+
+        /* Styling untuk tombol kembali ke dashboard */
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: #24a326;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .back-button:hover {
+            background-color: #1c7a1e;
+            text-decoration: none;
+            color: white;
+        }
+
+        /* Styling untuk form login */
+        .login-container {
+            max-width: 400px;
+            margin: 100px auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-primary {
+            width: 100%;
+        }
+
+        .alert {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Tombol Kembali ke Dashboard -->
+    <a href="dashboard.html" class="back-button">Kembali ke Dashboard</a>
+
+    <div class="container mt-5">
+        <div class="login-container">
+            <!-- Judul dengan Font Montserrat Bold -->
+            <h2 class="custom-title text-center">Login Admin</h2>
+            <div class="alert alert-danger" id="error-message">Username atau password salah!</div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" class="form-control" id="username" placeholder="Masukkan username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" class="form-control" id="password" placeholder="Masukkan password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Menyertakan jQuery dan Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="js/login.js"></script> <!-- Hubungkan dengan login.js -->
+</body>
+</html>

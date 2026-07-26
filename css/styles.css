@@ -1,0 +1,53 @@
+/* styles.css */
+.favicon {
+    width: 32px;  /* Anda bisa mengatur ukuran sesuai kebutuhan */
+    height: 32px;
+    object-fit: contain;  /* Agar gambar tetap proporsional */
+    border-radius: 50%;   /* Membuatnya berbentuk lingkaran */
+}
+
+body {
+    background-color: #e0f7e9; /* Warna hijau yang lembut untuk latar belakang */
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 600px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #2c8d44; /* Warna hijau yang lebih gelap untuk judul */
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-control {
+    border-radius: 5px;
+    border: 1px solid #c3e6cb;
+}
+
+.btn-primary {
+    background-color: #1c7a1e; /* Warna hijau lebih cerah untuk tombol */
+    border: none;
+    border-radius: 20px; /* Membuat tombol lebih bulat */
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #2f855a; /* Warna hijau sedikit lebih gelap saat di-hover */
+    color: #fff;
+}
+
+.alert {
+    border-radius: 5px;
+}

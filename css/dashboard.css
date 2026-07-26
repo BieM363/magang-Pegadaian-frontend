@@ -1,0 +1,73 @@
+/* dashboard.css */
+.favicon {
+    width: 32px;  /* Anda bisa mengatur ukuran sesuai kebutuhan */
+    height: 32px;
+    object-fit: contain;  /* Agar gambar tetap proporsional */
+    border-radius: 50%;   /* Membuatnya berbentuk lingkaran */
+}
+
+/* Styling untuk Navbar */
+.navbar-custom {
+    background-color: #baff91;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #a4d76d;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    color: #2c3e50;
+    text-decoration: none;
+}
+
+.navbar-brand:hover {
+    color: #1a242f;
+}
+
+.nav-links a {
+    color: #2c3e50;
+    text-decoration: none;
+    padding: 10px;
+}
+
+.nav-links a:hover {
+    color: #1a242f;
+}
+
+/* Styling untuk Background Banner */
+.banner-container {
+    position: relative;
+    width: 100%;
+    height: 400px; /* Ketinggian banner */
+    background-image: url('assets/img/jesman-fabio-y_yFaPBaUhg-unsplash.jpeg'); /* URL gambar */
+    background-size: cover; /* Menutupi seluruh container */
+    background-position: center; /* Memusatkan gambar */
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.centered-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.5); /* Latar belakang gelap transparan */
+    padding: 10px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.text-white {
+    color: #fff;
+}
+
+.container {
+    text-align: center;
+    padding: 20px;
+}
+
+.text-justify-custom {
+    text-align: justify;
+}
