@@ -1,95 +1,111 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Admin</title>
-     <!-- Favicon Ikon Gambar -->
-     <link rel="icon" href="assets/img/images.png" type="image/png">
-     <!-- Tambahkan Bootstrap CSS dari CDN -->
-     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Menggunakan file CSS yang sudah diperbarui -->
+    <title>Login Admin - Pegadaian Gorontalo Sentral</title>
+    <!-- Favicon -->
+    <link rel="icon" href="assets/img/images.png" type="image/png">
+    <!-- FontAwesome & Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/styles.css">
     <style>
-        /* Import font Montserrat Bold */
-        @font-face {
-            font-family: 'Montserrat Bold';
-            src: url('assets/font/montserrat.bold.ttf') format('truetype');
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #114712 0%, #1c7a1e 50%, #24a326 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-
-        /* Mengatur font untuk judul */
-        .custom-title {
-            font-family: 'Montserrat Bold', sans-serif;
-            color: #333;
+        .login-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            padding: 40px;
+            max-width: 420px;
+            width: 100%;
         }
-
-        /* Styling untuk tombol kembali ke dashboard */
-        .back-button {
+        .btn-pegadaian-login {
+            background: #24a326;
+            color: white;
+            font-weight: 600;
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            width: 100%;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+        .btn-pegadaian-login:hover {
+            background: #19781b;
+            color: white;
+            box-shadow: 0 4px 15px rgba(36,163,38,0.4);
+        }
+        .back-button-login {
             position: absolute;
             top: 20px;
             left: 20px;
-            background-color: #24a326;
+            background-color: rgba(255,255,255,0.2);
             color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
+            border: 1px solid rgba(255,255,255,0.4);
+            padding: 8px 18px;
+            border-radius: 8px;
             text-decoration: none;
+            font-weight: 500;
         }
-
-        .back-button:hover {
-            background-color: #1c7a1e;
+        .back-button-login:hover {
+            background-color: white;
+            color: #114712;
             text-decoration: none;
-            color: white;
-        }
-
-        /* Styling untuk form login */
-        .login-container {
-            max-width: 400px;
-            margin: 100px auto;
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .btn-primary {
-            width: 100%;
-        }
-
-        .alert {
-            display: none;
         }
     </style>
 </head>
 <body>
 
-    <!-- Tombol Kembali ke Dashboard -->
-    <a href="dashboard.html" class="back-button">Kembali ke Dashboard</a>
+    <!-- Back to Dashboard Link -->
+    <a href="dashboard.html" class="back-button-login"><i class="fas fa-arrow-left mr-2"></i> Kembali ke Dashboard</a>
 
-    <div class="container mt-5">
-        <div class="login-container">
-            <!-- Judul dengan Font Montserrat Bold -->
-            <h2 class="custom-title text-center">Login Admin</h2>
-            <div class="alert alert-danger" id="error-message">Username atau password salah!</div>
-            <form id="loginForm">
-                <div class="form-group">
-                    <label for="username">Username:</label>
-                    <input type="text" class="form-control" id="username" placeholder="Masukkan username" required>
-                </div>
-                <div class="form-group">
-                    <label for="password">Password:</label>
-                    <input type="password" class="form-control" id="password" placeholder="Masukkan password" required>
-                </div>
-                <button type="submit" class="btn btn-primary">Login</button>
-            </form>
+    <div class="login-card">
+        <div class="text-center mb-4">
+            <img src="assets/img/images.png" width="110" alt="Logo Pegadaian" class="mb-2">
+            <h4 class="font-weight-bold text-success">Login Petugas Admin</h4>
+            <p class="text-muted small">Otentikasi JWT Backend Web Blast Pegadaian</p>
+        </div>
+
+        <div class="alert alert-danger shadow-sm text-center font-weight-bold" id="error-message" style="display: none;"></div>
+
+        <form id="loginForm">
+            <div class="form-group mb-3">
+                <label for="username" class="font-weight-bold"><i class="fas fa-user text-success mr-1"></i> Username:</label>
+                <input type="text" class="form-control form-control-lg" id="username" placeholder="Masukkan username" required>
+            </div>
+            <div class="form-group mb-4">
+                <label for="password" class="font-weight-bold"><i class="fas fa-lock text-success mr-1"></i> Password:</label>
+                <input type="password" class="form-control form-control-lg" id="password" placeholder="Masukkan password" required>
+            </div>
+            <button type="submit" class="btn-pegadaian-login mb-3">
+                <i class="fas fa-sign-in-alt mr-2"></i> Masuk Sistem Admin
+            </button>
+        </form>
+
+        <div class="alert alert-light border text-center small text-muted mb-0">
+            <i class="fas fa-key text-warning mr-1"></i> Default Login: <strong>admin123</strong> / <strong>08</strong>
+        </div>
+
+        <div class="text-center mt-3 text-muted small">
+            Author: <strong>BieM363</strong> - Pegadaian Gorontalo Sentral
         </div>
     </div>
 
-    <!-- Menyertakan jQuery dan Bootstrap JS -->
+    <!-- Scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="js/login.js"></script> <!-- Hubungkan dengan login.js -->
+    <script src="js/auth.js"></script>
+    <script src="js/login.js"></script>
 </body>
 </html>

@@ -1,39 +1,55 @@
+/**
+ * Reminder Scheduling Form Handler
+ * Author: BieM363 - Upgrade Pegadaian Gorontalo Sentral
+ */
+
 $(document).ready(function () {
     $('#reminderForm').on('submit', function (event) {
-        event.preventDefault(); // Mencegah reload halaman
+        event.preventDefault(); // Prevent page reload
 
         // Ambil nilai dari input form
-        var name = $('#name').val();
-        var phone = $('#phone').val();
-        var item = $('#item').val(); // Ambil nilai dari input "Barang Gadai"
-        var amount = $('#amount').val();
+        var name = $('#name').val().trim();
+        var phone = $('#phone').val().trim();
+        var item = $('#item').val().trim();
+        var amount = $('#amount').val().trim();
         var dueDate = $('#dueDate').val();
+        var noSurat = $('#noSurat') ? $('#noSurat').val() : '';
 
-        // Validasi sederhana untuk memastikan semua bidang diisi
+        // Validasi sederhana
         if (name === "" || phone === "" || item === "" || dueDate === "" || amount === "") {
-            $('#message').html('<div class="alert alert-danger">Harap isi semua bidang!</div>');
+            $('#message').html('<div class="alert alert-danger font-weight-bold">Harap isi semua bidang form!</div>');
             return;
         }
 
-        // Kirim data ke backend melalui AJAX
+        // Send data to backend REST API
         $.ajax({
-            url: 'http://localhost:3000/api/reminders', // URL API backend
+            url: 'http://localhost:3000/api/reminders',
             method: 'POST',
-            contentType: 'application/json', // Mengatur tipe konten ke JSON
-            data: JSON.stringify({  // Kirim data dalam format JSON
+            contentType: 'application/json',
+            data: JSON.stringify({
                 name: name,
                 phone: phone,
                 item: item,
                 amount: amount,
-                dueDate: dueDate
+                dueDate: dueDate,
+                noSurat: noSurat
             }),
             success: function (response) {
-                $('#message').html('<div class="alert alert-success">Pengingat berhasil dibuat!</div>');
-                $('#reminderForm')[0].reset(); // Reset form setelah submit berhasil
+                $('#message').html(`
+                    <div class="alert alert-success shadow-sm">
+                        <i class="fas fa-check-circle mr-2"></i>
+                        Pengingat pembayaran untuk <strong>${response.data.name}</strong> berhasil dibuat!
+                    </div>
+                `);
+                $('#reminderForm')[0].reset(); // Reset form
             },
-            error: function (error) {
-                $('#message').html('<div class="alert alert-danger">Terjadi kesalahan. Silakan coba lagi.</div>');
-                console.error('Error:', error); // Tampilkan pesan kesalahan di konsol
+            error: function (xhr) {
+                var errText = 'Terjadi kesalahan saat membuat pengingat.';
+                if (xhr.responseJSON && xhr.responseJSON.message) {
+                    errText = xhr.responseJSON.message;
+                }
+                $('#message').html(`<div class="alert alert-danger font-weight-bold">${errText}</div>`);
+                console.error('Error:', xhr);
             }
         });
     });

@@ -1,113 +1,153 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment Reminder App</title>
-     <!-- Favicon Ikon Gambar -->
-     <link rel="icon" href="assets/img/images.png" type="image/png">
-     <!-- Tambahkan Bootstrap CSS dari CDN -->
-     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Menggunakan file CSS yang sudah diperbarui -->
+    <title>Form Penjadwalan Pengingat - Pegadaian Gorontalo Sentral</title>
+    <!-- Favicon -->
+    <link rel="icon" href="assets/img/images.png" type="image/png">
+    <!-- FontAwesome & Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/styles.css">
     <style>
-        /* Import font Montserrat Bold */
-        @font-face {
-            font-family: 'Montserrat Bold';
-            src: url('assets/font/montserrat.bold.ttf') format('truetype');
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f7f6;
         }
-
-        /* Mengatur font untuk judul */
-        .custom-title {
-            font-family: 'Montserrat Bold', sans-serif;
-            color: #333;
-        }
-
-        /* Styling untuk tombol kembali ke dashboard */
-        .back-button {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background-color: #24a326;
-            color: white;
+        .form-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
             border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            text-decoration: none;
+            padding: 35px;
+            margin-top: 50px;
+            margin-bottom: 50px;
         }
-
-        .back-button:hover {
+        .btn-pegadaian-submit {
+            background: linear-gradient(135deg, #1c7a1e 0%, #24a326 100%);
+            color: white;
+            font-weight: 600;
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            width: 100%;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+        .btn-pegadaian-submit:hover {
+            background: linear-gradient(135deg, #114712 0%, #1c7a1e 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(36,163,38,0.4);
+        }
+        .back-nav {
+            background-color: #114712;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-block;
+        }
+        .back-nav:hover {
+            color: white;
             background-color: #1c7a1e;
             text-decoration: none;
-            color: white;
-        }
-
-        /* Styling untuk ikon tanda tanya */
-        .info-icon {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 24px;
-            color: #6c757d;
-            cursor: pointer;
-        }
-
-        .info-icon:hover {
-            color: #333;
         }
     </style>
 </head>
 <body>
-    <!-- Tombol Kembali ke Dashboard -->
-    <a href="dashboard.html" class="back-button">Kembali ke Dashboard</a>
 
-    <!-- Ikon Tanda Tanya dengan Modal -->
-    <span class="info-icon" data-toggle="modal" data-target="#infoModal">
-        &#x2753; <!-- Unicode untuk tanda tanya -->
-    </span>
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mt-4">
+            <a href="dashboard.html" class="back-nav"><i class="fas fa-arrow-left mr-2"></i> Kembali ke Dashboard</a>
+            <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#infoModal">
+                <i class="fas fa-question-circle mr-1"></i> Bantuan & Info
+            </button>
+        </div>
 
-    <div class="container mt-5">
-        <!-- Judul dengan Font Montserrat Bold -->
-        <h1 class="custom-title">Penjadwalan Pengingat Pembayaran</h1>
-        <form id="reminderForm">
-            <div class="form-group">
-                <label for="name">Nama Pelanggan:</label>
-                <input type="text" class="form-control" id="name" required>
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="form-card">
+                    <div class="text-center mb-4">
+                        <img src="assets/img/images.png" width="100" alt="Logo Pegadaian" class="mb-2">
+                        <h3 class="font-weight-bold text-success">Penjadwalan Pengingat Pembayaran</h3>
+                        <p class="text-muted">Masukkan data transaksi gadai nasabah untuk pengiriman pesan WhatsApp otomatis</p>
+                    </div>
+
+                    <form id="reminderForm">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="noSurat" class="font-weight-bold"><i class="fas fa-file-invoice text-success mr-1"></i> No. Surat Gadai (Opsional):</label>
+                                <input type="text" class="form-control form-control-lg" id="noSurat" placeholder="Contoh: PGD-2026-001">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="name" class="font-weight-bold"><i class="fas fa-user text-success mr-1"></i> Nama Nasabah:</label>
+                                <input type="text" class="form-control form-control-lg" id="name" placeholder="Nama lengkap nasabah" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="phone" class="font-weight-bold"><i class="fab fa-whatsapp text-success mr-1"></i> Nomor Telepon / WhatsApp:</label>
+                                <input type="text" class="form-control form-control-lg" id="phone" placeholder="Contoh: 081234567890 (Otomatis format 62)" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="item" class="font-weight-bold"><i class="fas fa-box text-success mr-1"></i> Barang Gadai:</label>
+                                <input type="text" class="form-control form-control-lg" id="item" placeholder="Contoh: Emas 10 Gram / Laptop" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="amount" class="font-weight-bold"><i class="fas fa-money-bill-wave text-success mr-1"></i> Jumlah Pembayaran (Rp):</label>
+                                <input type="number" class="form-control form-control-lg" id="amount" placeholder="Contoh: 1500000" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="dueDate" class="font-weight-bold"><i class="fas fa-calendar-alt text-success mr-1"></i> Tanggal Jatuh Tempo:</label>
+                                <input type="date" class="form-control form-control-lg" id="dueDate" required>
+                            </div>
+                        </div>
+
+                        <div class="mt-4">
+                            <button type="submit" class="btn-pegadaian-submit">
+                                <i class="fas fa-paper-plane mr-2"></i> Buat Pengingat Pembayaran
+                            </button>
+                        </div>
+                    </form>
+
+                    <div id="message" class="mt-4"></div>
+
+                    <div class="text-center mt-4 border-top pt-3">
+                        <a href="data.html" class="text-success font-weight-bold">
+                            <i class="fas fa-list mr-1"></i> Lihat Semua Data Pengingat & Mulai Blasting &rarr;
+                        </a>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="phone">Nomor Telepon:</label>
-                <input type="text" class="form-control" id="phone" required>
-            </div>
-            <div class="form-group">
-                <label for="item">Barang Gadai:</label>
-                <input type="text" class="form-control" id="item" required>
-            </div>
-            <div class="form-group">
-                <label for="amount">Jumlah Pembayaran:</label>
-                <input type="number" class="form-control" id="amount" required>
-            </div>
-            <div class="form-group">
-                <label for="dueDate">Tanggal Jatuh Tempo:</label>
-                <input type="date" class="form-control" id="dueDate" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Buat Pengingat</button>
-        </form>
-        <div id="message" class="mt-3"></div>
+        </div>
     </div>
 
-    <!-- Modal untuk Penjelasan -->
-    <div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="infoModalLabel">Apa Itu Penjadwalan Pengingat Pembayaran?</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <!-- Modal Penjelasan -->
+    <div class="modal fade" id="infoModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title font-weight-bold"><i class="fas fa-info-circle mr-1"></i> Tentang Penjadwalan Pengingat</h5>
+                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    Penjadwalan Pengingat Pembayaran adalah aplikasi yang membantu pengguna mengatur pengingat untuk pembayaran yang akan datang. Aplikasi ini memungkinkan Anda untuk mencatat nama pelanggan, nomor telepon, jumlah pembayaran, barang yang digadaikan, dan tanggal jatuh tempo untuk memastikan pembayaran dilakukan tepat waktu.
+                    <p>Sistem ini membantu petugas Pegadaian Gorontalo Sentral untuk mencatat dan menjadwalkan pesan pengingat jatuh tempo pembayaran secara otomatis.</p>
+                    <p>Pesan akan dikirim melalui <strong>WhatsApp Engine Lokal (BullMQ Queue)</strong> dengan alur terstruktur:</p>
+                    <ul class="mb-0">
+                        <li><strong>Pending:</strong> Data tersimpan & menunggu blasting.</li>
+                        <li><strong>Queued:</strong> Dimasukkan ke antrean Redis/Memory.</li>
+                        <li><strong>Sent:</strong> Berhasil terkirim ke nomor WhatsApp nasabah.</li>
+                    </ul>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
@@ -116,10 +156,11 @@
         </div>
     </div>
 
-    <!-- Menyertakan jQuery dan Bootstrap JS untuk Modal -->
+    <!-- Scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="js/auth.js"></script>
     <script src="js/scripts.js"></script>
 </body>
 </html>
