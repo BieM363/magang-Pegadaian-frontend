@@ -1,7 +1,9 @@
 /**
- * Data Management & WhatsApp Blasting Script
+ * Data Management, Single Send, Edit & Template Editor Script
  * Author: BieM363 - Upgrade Pegadaian Gorontalo Sentral
  */
+
+let activeTemplateId = null;
 
 // Load data from API with active filters
 function loadData() {
@@ -56,7 +58,6 @@ function loadData() {
                 }
 
                 const formattedAmount = Number(reminder.amount).toLocaleString('id-ID');
-                const sendDateStr = reminder.send_date ? reminder.send_date : '-';
 
                 reminderData += `
                     <tr>
@@ -67,8 +68,14 @@ function loadData() {
                         <td>Rp ${formattedAmount}</td>
                         <td>${reminder.due_date}</td>
                         <td>${statusBadge}</td>
-                        <td class="text-center">
-                            <button class="btn btn-sm btn-danger delete-button" onclick="deleteReminder(${reminder.id})">
+                        <td class="text-center" style="white-space: nowrap;">
+                            <button class="btn btn-sm btn-success mr-1 font-weight-bold" onclick="sendSingleWhatsApp(${reminder.id})" title="Kirim WA ke nomor ini saja">
+                                <i class="fab fa-whatsapp"></i> Kirim WA
+                            </button>
+                            <button class="btn btn-sm btn-primary mr-1 font-weight-bold" onclick="openEditModal(${reminder.id})" title="Edit Data">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button class="btn btn-sm btn-danger font-weight-bold" onclick="deleteReminder(${reminder.id})" title="Hapus Data">
                                 <i class="fas fa-trash-alt"></i> Hapus
                             </button>
                         </td>
@@ -99,6 +106,183 @@ function updateBadgeCounters(total, pending, queued, sent, failed) {
     $('#countSent').text(sent);
 }
 
+// Revision 3: Send single WhatsApp message to 1 specific number (even if already sent/failed)
+function sendSingleWhatsApp(id) {
+    if (!confirm('Kirim pesan pengingat WhatsApp ke nomor ini saja?')) {
+        return;
+    }
+
+    $.ajax({
+        url: `http://localhost:3000/api/reminders/${id}/resend`,
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({}),
+        success: function(res) {
+            alert(res.message || 'Pesan pengingat berhasil dikirim!');
+            loadData();
+        },
+        error: function(xhr) {
+            var msg = 'Gagal mengirim pesan WhatsApp.';
+            if (xhr.responseJSON && xhr.responseJSON.message) {
+                msg = xhr.responseJSON.message;
+            }
+            alert(msg);
+        }
+    });
+}
+
+// Revision 4: Open Edit Modal for ANY reminder (pending, queued, sent, failed)
+function openEditModal(id) {
+    $.ajax({
+        url: `http://localhost:3000/api/reminders/${id}`,
+        method: 'GET',
+        success: function(res) {
+            const data = res.data;
+            if (!data) return;
+
+            $('#editId').val(data.id);
+            $('#editNoSurat').val(data.no_surat || '');
+            $('#editName').val(data.name || '');
+            $('#editPhone').val(data.phone || '');
+            $('#editItem').val(data.item || '');
+            $('#editAmount').val(data.amount || '');
+            $('#editDueDate').val(data.due_date ? String(data.due_date).split('T')[0] : '');
+            $('#editStatus').val(data.status || 'pending');
+
+            $('#editModal').modal('show');
+        },
+        error: function(err) {
+            alert('Gagal memuat detail data pengingat.');
+        }
+    });
+}
+
+// Save Edit Reminder
+function saveEditReminder() {
+    const id = $('#editId').val();
+    const noSurat = $('#editNoSurat').val().trim();
+    const name = $('#editName').val().trim();
+    const phone = $('#editPhone').val().trim();
+    const item = $('#editItem').val().trim();
+    const amount = $('#editAmount').val();
+    const dueDate = $('#editDueDate').val();
+    const status = $('#editStatus').val();
+
+    if (!name || !phone || !item || !amount || !dueDate) {
+        alert('Mohon isi bidang yang wajib!');
+        return;
+    }
+
+    $.ajax({
+        url: `http://localhost:3000/api/reminders/${id}`,
+        method: 'PUT',
+        contentType: 'application/json',
+        data: JSON.stringify({
+            noSurat,
+            name,
+            phone,
+            item,
+            amount,
+            dueDate,
+            status
+        }),
+        success: function(res) {
+            alert('Data pengingat berhasil diperbarui!');
+            $('#editModal').modal('hide');
+            loadData();
+        },
+        error: function(xhr) {
+            alert('Gagal memperbarui data pengingat.');
+        }
+    });
+}
+
+// Revision 2: Template Editor Modal Logic
+function openTemplateModal() {
+    $.ajax({
+        url: 'http://localhost:3000/api/templates/active',
+        method: 'GET',
+        success: function(res) {
+            if (res.data) {
+                activeTemplateId = res.data.id;
+                $('#templateTitle').val(res.data.title || 'Template Pengingat');
+                $('#templateBody').val(res.data.template_body || '');
+                updateTemplatePreview();
+            }
+            $('#templateModal').modal('show');
+        },
+        error: function(err) {
+            alert('Gagal memuat template pesan.');
+        }
+    });
+}
+
+function insertPlaceholder(tag) {
+    const textarea = document.getElementById('templateBody');
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const text = textarea.value;
+    textarea.value = text.substring(0, start) + tag + text.substring(end);
+    textarea.focus();
+    textarea.selectionStart = textarea.selectionEnd = start + tag.length;
+    updateTemplatePreview();
+}
+
+function updateTemplatePreview() {
+    let text = $('#templateBody').val() || '';
+    text = text.replace(/\*nama\*/gi, 'Ahmad Hidayat');
+    text = text.replace(/\*nosurat\*/gi, 'PGD-2026-088');
+    text = text.replace(/\*barang\*/gi, 'Emas Batangan 5 Gram');
+    text = text.replace(/\*harga\*/gi, '2.500.000');
+    text = text.replace(/\*tanggal\*/gi, '2026-08-15');
+    $('#templatePreview').text(text);
+}
+
+function saveTemplate() {
+    const title = $('#templateTitle').val().trim();
+    const templateBody = $('#templateBody').val();
+
+    if (!title || !templateBody) {
+        alert('Judul dan isi template wajib diisi!');
+        return;
+    }
+
+    if (activeTemplateId) {
+        $.ajax({
+            url: `http://localhost:3000/api/templates/${activeTemplateId}`,
+            method: 'PUT',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                title,
+                templateBody,
+                isActive: true
+            }),
+            success: function(res) {
+                alert('Template pesan dinamis berhasil disimpan!');
+                $('#templateModal').modal('hide');
+            },
+            error: function(err) {
+                alert('Gagal menyimpan template pesan.');
+            }
+        });
+    } else {
+        $.ajax({
+            url: 'http://localhost:3000/api/templates',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                title,
+                templateBody,
+                isActive: true
+            }),
+            success: function(res) {
+                alert('Template pesan berhasil dibuat!');
+                $('#templateModal').modal('hide');
+            }
+        });
+    }
+}
+
 // Delete reminder by ID
 function deleteReminder(id) {
     if (confirm('Apakah Anda yakin ingin menghapus pengingat ini?')) {
@@ -111,7 +295,6 @@ function deleteReminder(id) {
             },
             error: function(err) {
                 alert('Gagal menghapus data.');
-                console.error(err);
             }
         });
     }
@@ -241,5 +424,9 @@ $(document).ready(function() {
 
     $('#statusFilter, #dueDateFilter').on('change', function() {
         loadData();
+    });
+
+    $('#templateBody').on('input', function() {
+        updateTemplatePreview();
     });
 });

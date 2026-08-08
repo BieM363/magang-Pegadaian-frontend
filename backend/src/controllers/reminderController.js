@@ -167,6 +167,29 @@ async function deleteReminder(req, res) {
   });
 }
 
+// POST /api/reminders/:id/resend (Send single message to one phone number)
+async function resendSingleReminder(req, res) {
+  const { id } = req.params;
+
+  const reminder = await db('reminders').where('id', id).first();
+  if (!reminder) {
+    return res.status(404).json({ success: false, message: 'Data pengingat tidak ditemukan.' });
+  }
+
+  // Fetch active template
+  const templateObj = await db('message_templates').where('is_active', true).first();
+  const templateText = templateObj ? templateObj.template_body : '';
+
+  const formattedMsg = formatTemplateMessage(templateText, reminder);
+  await addReminderToQueue(reminder.id, reminder.phone, formattedMsg);
+
+  return res.json({
+    success: true,
+    message: `Pesan pengingat WhatsApp berhasil dimasukkan ke antrean kirim untuk ${reminder.name} (${reminder.phone}).`,
+    data: reminder,
+  });
+}
+
 // POST /api/reminders/blast
 async function triggerBlast(req, res) {
   const { reminderIds } = req.body;
@@ -335,6 +358,7 @@ module.exports = {
   createReminder,
   updateReminder,
   deleteReminder,
+  resendSingleReminder,
   triggerBlast,
   importExcel,
   exportExcel,

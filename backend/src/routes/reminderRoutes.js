@@ -21,6 +21,7 @@ router.put('/:id', reminderController.updateReminder);
 router.delete('/:id', reminderController.deleteReminder);
 
 router.post('/blast', reminderController.triggerBlast);
+router.post('/:id/resend', reminderController.resendSingleReminder);
 router.post('/import-excel', upload.single('file'), reminderController.importExcel);
 
 module.exports = router;

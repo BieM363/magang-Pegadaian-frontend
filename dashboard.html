@@ -49,6 +49,10 @@
             background: #1c7a1e;
             color: white;
         }
+        .tag-badge {
+            cursor: pointer;
+            user-select: none;
+        }
     </style>
 </head>
 <body>
@@ -84,9 +88,12 @@
                 <a href="index.html" class="btn btn-pegadaian-primary mr-3 mb-2 font-weight-bold">
                     <i class="fas fa-calendar-plus mr-2"></i> Buat Pengingat Pembayaran
                 </a>
-                <a href="data.html" class="btn btn-light btn-lg font-weight-bold mb-2 text-success shadow-sm">
+                <a href="data.html" class="btn btn-light btn-lg font-weight-bold mb-2 text-success shadow-sm mr-3">
                     <i class="fas fa-table mr-2"></i> Kelola Data & Blasting
                 </a>
+                <button class="btn btn-warning btn-lg font-weight-bold mb-2 text-dark shadow-sm" onclick="openTemplateModal()">
+                    <i class="fas fa-edit mr-2"></i> Edit Template Pesan
+                </button>
             </div>
         </div>
     </section>
@@ -112,10 +119,10 @@
                             Berjalan 100% di localhost tanpa memerlukan API Gateway berbayar.
                         </p>
                         <div class="d-flex flex-wrap">
-                            <button class="btn btn-sm btn-success mr-2 mb-2 font-weight-bold" onclick="initWhatsAppEngine()">
-                                <i class="fas fa-power-off mr-1"></i> Hubungkan Engine
+                            <button class="btn btn-success mr-2 mb-2 font-weight-bold" onclick="openWhatsAppModal()">
+                                <i class="fas fa-qrcode mr-1"></i> Scan QR Code / Hubungkan Sesi
                             </button>
-                            <button class="btn btn-sm btn-outline-danger mb-2 font-weight-bold" onclick="logoutWhatsAppEngine()">
+                            <button class="btn btn-outline-danger mb-2 font-weight-bold" onclick="logoutWhatsAppEngine()">
                                 <i class="fas fa-sign-out-alt mr-1"></i> Logout WhatsApp
                             </button>
                         </div>
@@ -186,6 +193,80 @@
 
     </div>
 
+    <!-- Modal 1: WhatsApp QR Scanner Modal -->
+    <div class="modal fade" id="waQRModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title font-weight-bold"><i class="fab fa-whatsapp mr-2"></i> Connect WhatsApp Engine</h5>
+                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body p-4" id="modalQrContainer">
+                    <div class="text-center py-4">
+                        <i class="fas fa-spinner fa-spin fa-3x text-success mb-3"></i>
+                        <p class="text-muted">Memuat status koneksi WhatsApp...</p>
+                    </div>
+                </div>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-secondary font-weight-bold" data-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 2: Pengaturan Template Pesan Modal -->
+    <div class="modal fade" id="templateModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg">
+                <div class="modal-header bg-info text-white">
+                    <h5 class="modal-title font-weight-bold"><i class="fas fa-comment-dots mr-2"></i> Pengaturan Template Pesan WhatsApp</h5>
+                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="form-group mb-3">
+                        <label class="font-weight-bold">Judul Template:</label>
+                        <input type="text" class="form-control" id="templateTitle" placeholder="Contoh: Template Pengingat Utama">
+                    </div>
+
+                    <div class="form-group mb-2">
+                        <label class="font-weight-bold">Isi Format Pesan WhatsApp:</label>
+                        <textarea class="form-control" id="templateBody" rows="6" placeholder="Ketik format pesan WhatsApp di sini..."></textarea>
+                    </div>
+
+                    <!-- Placeholder Tags Guide -->
+                    <div class="mb-3">
+                        <small class="font-weight-bold text-muted d-block mb-1">Klik Tag Placeholder di bawah untuk menyisipkan variabel otomatis:</small>
+                        <span class="badge badge-success px-2 py-1 mr-1 tag-badge" onclick="insertPlaceholder('*nama*')">+ *nama*</span>
+                        <span class="badge badge-info px-2 py-1 mr-1 tag-badge" onclick="insertPlaceholder('*nosurat*')">+ *nosurat*</span>
+                        <span class="badge badge-warning text-dark px-2 py-1 mr-1 tag-badge" onclick="insertPlaceholder('*barang*')">+ *barang*</span>
+                        <span class="badge badge-primary px-2 py-1 mr-1 tag-badge" onclick="insertPlaceholder('*harga*')">+ *harga*</span>
+                        <span class="badge badge-secondary px-2 py-1 mr-1 tag-badge" onclick="insertPlaceholder('*tanggal*')">+ *tanggal*</span>
+                    </div>
+
+                    <!-- Live Preview Container -->
+                    <div class="card bg-light border-0">
+                        <div class="card-header bg-light font-weight-bold border-bottom-0 text-success small pb-0">
+                            <i class="fab fa-whatsapp mr-1"></i> Live Preview Tampilan Pesan Nasabah:
+                        </div>
+                        <div class="card-body py-2">
+                            <pre id="templatePreview" class="mb-0 text-dark small" style="white-space: pre-wrap; font-family: inherit;"></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-secondary font-weight-bold" data-dismiss="modal">Tutup</button>
+                    <button type="button" class="btn btn-info font-weight-bold" onclick="saveTemplate()">
+                        <i class="fas fa-save mr-1"></i> Simpan Template Pesan
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer id="contact" class="pt-5 pb-4 bg-dark text-white">
         <div class="container text-center text-md-left">
@@ -219,5 +300,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/whatsapp.js"></script>
+    <script src="js/data.js"></script>
 </body>
 </html>
