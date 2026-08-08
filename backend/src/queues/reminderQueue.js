@@ -192,4 +192,5 @@ async function addReminderToQueue(reminderId, phone, messageText) {
 module.exports = {
   initQueue,
   addReminderToQueue,
+  processSingleReminder,
 };

@@ -4,7 +4,7 @@
  */
 
 const { db } = require('../config/database');
-const { addReminderToQueue } = require('../queues/reminderQueue');
+const { addReminderToQueue, processSingleReminder } = require('../queues/reminderQueue');
 const { formatTemplateMessage } = require('../services/schedulerService');
 const XLSX = require('xlsx');
 
@@ -181,11 +181,13 @@ async function resendSingleReminder(req, res) {
   const templateText = templateObj ? templateObj.template_body : '';
 
   const formattedMsg = formatTemplateMessage(templateText, reminder);
-  await addReminderToQueue(reminder.id, reminder.phone, formattedMsg);
+  
+  // Directly process SINGLE reminder item only
+  await processSingleReminder(reminder.id, reminder.phone, formattedMsg);
 
   return res.json({
     success: true,
-    message: `Pesan pengingat WhatsApp berhasil dimasukkan ke antrean kirim untuk ${reminder.name} (${reminder.phone}).`,
+    message: `Pesan pengingat WhatsApp berhasil dikirim khusus ke ${reminder.name} (${reminder.phone}).`,
     data: reminder,
   });
 }
